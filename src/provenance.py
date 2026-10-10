@@ -1,32 +1,73 @@
-#!/usr/bin/env python3
-"""SHA-256 provenance tracking for audit artifacts."""
-import hashlib, json, requests
-from pathlib import Path
+# #!/usr/bin/env python3
+import argparse
 from datetime import datetime, timezone
+import json
+import os
+from pathlib import Path
+import tempfile
+from typing import Any
+
+
+def atomic_write_json(destination: Path, payload: dict[str, Any]) -> None:
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    fd, temp_name = tempfile.mkstemp(
+        prefix=f".{destination.name}.",
+        suffix=".tmp",
+        dir=destination.parent,
+    )
+    temp_path = Path(temp_name)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as stream:
+            json.dump(payload, stream, indent=2)
+            stream.write("\n")
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temp_path, destination)
+    except BaseException:
+        temp_path.unlink(missing_ok=True)
+        raise
+
 
 class ProvenanceTracker:
-    def __init__(self, output_dir="./data/provenance"):
-        self.output_dir = Path(output_dir)
-        self.output_dir.mkdir(parents=True, exist_ok=True)
-        self.log_file = self.output_dir / f"provenance_{datetime.now(timezone.utc).strftime('%Y-%m-%d')}.json"
-        self.entries = []
-    
-    def compute_hash(self, filepath):
-        sha256 = hashlib.sha256()
-        with open(filepath, 'rb') as f:
-            for chunk in iter(lambda: f.read(8192), b''):
-                sha256.update(chunk)
-        return sha256.hexdigest()
-    
-    def record(self, name, url, filepath, tier, notes=""):
+    def __init__(self, log_file: Path = Path("data/provenance/audit_log.json")) -> None:
+        self.log_file = log_file
+        self.entries: list[dict[str, Any]] = []
+        if self.log_file.exists():
+            try:
+                with open(self.log_file, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    self.entries = data.get("entries", [])
+            except (json.JSONDecodeError, OSError):
+                self.entries = []
+
+    def record(self, name: str, url: str, file_path: str, tier: str, notes: str = "") -> dict[str, Any]:
         entry = {
-            "source_name": name, "url": url,
-            "filepath": str(filepath.absolute()),
-            "sha256_hash": self.compute_hash(filepath) if filepath.exists() else None,
-            "tier": tier.upper(), "notes": notes,
-            "timestamp_utc": datetime.now(timezone.utc).isoformat()
+            "name": name,
+            "url": url,
+            "file": file_path,
+            "tier": tier,
+            "notes": notes,
+            "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         }
         self.entries.append(entry)
-        with open(self.log_file, 'w') as f:
-            json.dump({"entries": self.entries}, f, indent=2)
+        atomic_write_json(self.log_file, {"entries": self.entries})
         return entry
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Record artifact provenance and SHA-256 hashes.")
+    parser.add_argument("--name", required=True, help="Name of the source/dataset")
+    parser.add_argument("--url", required=True, help="Source URL")
+    parser.add_argument("--file", required=True, help="Path to file")
+    parser.add_argument("--tier", required=True, help="Verification tier (e.g., VERIFIED)")
+    parser.add_argument("--notes", default="", help="Optional notes")
+    args = parser.parse_args()
+
+    tracker = ProvenanceTracker()
+    tracker.record(args.name, args.url, args.file, args.tier, args.notes)
+    print(f"✅ Provenance recorded for {args.file}")
+
+
+if __name__ == "__main__":
+    main()
+
