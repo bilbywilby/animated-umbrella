@@ -161,5 +161,9 @@
   "validation": {
     "total_counties": 67,
     "total_areas": 9
+  },
+  "rating_areas": {
+    "1": null,
+    "7": null
   }
 }
