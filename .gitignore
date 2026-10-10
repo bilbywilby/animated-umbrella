@@ -1,0 +1,15 @@
+# Byte-artifacts and Git internals
+main
+FETCH_HEAD
+.git/
+
+# Dependencies
+node_modules/
+__pycache__/
+*.py[cod]
+
+# Build artifacts
+final_package/
+*.tar.gz
+*.zip
+data/provenance/
