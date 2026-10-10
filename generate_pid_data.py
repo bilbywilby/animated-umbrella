@@ -163,7 +163,7 @@ def main():
     print("Generating PA PY2027 ACA Rate Datasets")
     print("=" * 60)
     print(f"Output directory: {ROOT}")
-    print(f"Number of carriers: {len(CARiers_DATA)}")
+    print(f"Number of carriers: {len(CARRIERS_DATA)}")
     print()
     
     # Validate
