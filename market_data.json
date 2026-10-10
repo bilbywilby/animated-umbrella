@@ -1,0 +1,89 @@
+{
+    "metadata": {
+        "market": "Pennsylvania ACA",
+        "year": 2027,
+        "currency": "USD"
+    },
+    "statewide_averages": {
+        "individual": {
+            "requested": 17.14,
+            "approved": 15.97
+        },
+        "small_group": {
+            "requested": 11.49,
+            "approved": 10.28
+        }
+    },
+    "carriers": [
+        {
+            "name": "Ambetter Health of Pennsylvania Inc",
+            "requested": 40.9,
+            "approved": 35.1
+        },
+        {
+            "name": "Capital Advantage Assurance Company",
+            "requested": 18.3,
+            "approved": 14.8
+        },
+        {
+            "name": "Geisinger Health Plan",
+            "requested": 10.5,
+            "approved": 8.6
+        },
+        {
+            "name": "Geisinger Quality Options",
+            "requested": 13.0,
+            "approved": 10.7
+        },
+        {
+            "name": "Health Partners Plans Inc",
+            "requested": 15.9,
+            "approved": 18.3
+        },
+        {
+            "name": "Highmark Benefits Group",
+            "requested": 21.4,
+            "approved": 19.7
+        },
+        {
+            "name": "Highmark Inc",
+            "requested": 16.2,
+            "approved": 14.5
+        },
+        {
+            "name": "Keystone Health Plan Central",
+            "requested": 33.8,
+            "approved": 33.4
+        },
+        {
+            "name": "Keystone Health Plan East",
+            "requested": 14.7,
+            "approved": 16.0
+        },
+        {
+            "name": "Oscar Health Plan of PA",
+            "requested": 15.4,
+            "approved": 1.4
+        },
+        {
+            "name": "Partners Insurance Company Inc",
+            "requested": 20.5,
+            "approved": 18.8
+        },
+        {
+            "name": "QCC Insurance Company",
+            "requested": 19.9,
+            "approved": 21.3
+        },
+        {
+            "name": "UPMC Health Network Inc",
+            "requested": 12.0,
+            "approved": 9.7
+        },
+        {
+            "name": "UPMC Health Plan Inc",
+            "requested": 15.8,
+            "approved": 13.5
+        }
+    ]
+}
