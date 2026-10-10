@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pennsylvania ACA Plan Year 2027 Rate & Market Audit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .slide { display: none; }
+    .slide.active { display: block; }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between font-sans">
+
+  <!-- Header Header / Progress Bar -->
+  <header class="bg-slate-800 border-b border-slate-700 px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center space-x-3">
+      <i class="fa-solid fa-shield-halved text-blue-400 text-xl"></i>
+      <h1 class="font-semibold text-lg text-slate-200">PA ACA PY2027 Forensic Audit Briefing</h1>
+    </div>
+    <div class="text-sm font-medium text-slate-400">
+      Slide <span id="current-slide">1</span> of 12
+    </div>
+  </header>
+
+  <!-- Main Slide Container -->
+  <main class="container mx-auto px-6 py-8 flex-grow max-w-5xl">
+
+    <!-- Slide 1: Executive Overview -->
+    <section class="slide active">
+      <h2 class="text-3xl font-bold text-white mb-4">Statewide Rate Approval Summary & Key Findings</h2>
+      <p class="text-slate-300 mb-6">Approved rate increases by the Pennsylvania Insurance Department (PID) for Plan Year 2027 reflect significant underlying market adjustments, morbidity trends, and structural carrier dynamics.</p>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <div class="bg-slate-800 p-5 rounded-lg border border-slate-700">
+          <div class="text-slate-400 text-xs uppercase font-bold tracking-wider">Individual Avg Increase</div>
+          <div class="text-3xl font-extrabold text-blue-400 mt-2">15.97%</div>
+          <div class="text-slate-400 text-xs mt-1">PID Approved Rate</div>
+        </div>
+        <div class="bg-slate-800 p-5 rounded-lg border border-slate-700">
+          <div class="text-slate-400 text-xs uppercase font-bold tracking-wider">Small Group Avg Increase</div>
+          <div class="text-3xl font-extrabold text-emerald-400 mt-2">10.28%</div>
+          <div class="text-slate-400 text-xs mt-1">PID Approved Rate</div>
+        </div>
+        <div class="bg-slate-800 p-5 rounded-lg border border-slate-700">
+          <div class="text-slate-400 text-xs uppercase font-bold tracking-wider">Consumer Rate Denial</div>
+          <div class="text-3xl font-extrabold text-amber-400 mt-2">$94.7M</div>
+          <div class="text-slate-400 text-xs mt-1">Unjustified Premium Cut</div>
+        </div>
+        <div class="bg-slate-800 p-5 rounded-lg border border-slate-700">
+          <div class="text-slate-400 text-xs uppercase font-bold tracking-wider">Net Retention Rate</div>
+          <div class="text-3xl font-extrabold text-purple-400 mt-2">84.0%</div>
+          <div class="text-slate-400 text-xs mt-1">417K Paid Enrollees</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 2: Rate Decisions & Verification -->
+    <section class="slide">
+      <h2 class="text-3xl font-bold text-white mb-4">Carrier Rate Actions & Verification</h2>
+      <div class="overflow-x-auto bg-slate-800 rounded-lg border border-slate-700">
+        <table class="w-full text-left text-sm text-slate-300">
+          <thead class="bg-slate-700 text-slate-200 uppercase text-xs">
+            <tr>
+              <th class="p-3">Carrier Name</th>
+              <th class="p-3">HIOS ID</th>
+              <th class="p-3">Requested</th>
+              <th class="p-3">Approved</th>
+              <th class="p-3">Delta</th>
+              <th class="p-3">Morbidity Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-700">
+            <tr><td class="p-3 font-semibold">Keystone Health Plan East</td><td class="p-3">33871</td><td class="p-3">14.70%</td><td class="p-3 text-red-400 font-bold">16.00%</td><td class="p-3 text-red-400">+1.30 pts</td><td class="p-3">Net Recipient (+$41.4M)</td></tr>
+            <tr><td class="p-3 font-semibold">QCC Insurance Co.</td><td class="p-3">31609</td><td class="p-3">19.90%</td><td class="p-3 text-red-400 font-bold">21.30%</td><td class="p-3 text-red-400">+1.40 pts</td><td class="p-3">Net Recipient (+$3.7M)</td></tr>
+            <tr><td class="p-3 font-semibold">Health Partners Plans</td><td class="p-3">93909</td><td class="p-3">11.20%</td><td class="p-3 text-red-400 font-bold">13.50%</td><td class="p-3 text-red-400">+2.30 pts</td><td class="p-3">Net Recipient (+$24.8M)</td></tr>
+            <tr><td class="p-3 font-semibold">PA Health & Wellness (Ambetter)</td><td class="p-3">86199</td><td class="p-3">22.00%</td><td class="p-3 text-emerald-400 font-bold">18.50%</td><td class="p-3 text-emerald-400">-3.50 pts</td><td class="p-3">Net Recipient (+$61.1M)</td></tr>
+            <tr><td class="p-3 font-semibold">Highmark Benefits Group</td><td class="p-3">79962</td><td class="p-3">12.50%</td><td class="p-3 text-emerald-400 font-bold">10.10%</td><td class="p-3 text-emerald-400">-2.40 pts</td><td class="p-3">Net Payer (-$24.7M)</td></tr>
+            <tr><td class="p-3 font-semibold">Oscar Health</td><td class="p-3">35380</td><td class="p-3">8.00%</td><td class="p-3 text-emerald-400 font-bold">1.38%</td><td class="p-3 text-emerald-400">-6.62 pts</td><td class="p-3">Small Pool (1,347 members)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Slide 3: Risk Adjustment Validation -->
+    <section class="slide">
+      <h2 class="text-3xl font-bold text-white mb-4">CMS Risk-Adjustment Audit Validation</h2>
+      <p class="text-slate-300 mb-4">Cross-referencing CMS BY2025 risk-adjustment summary data verifies the morbidity basis for PID rate decisions.</p>
+      <div class="bg-slate-800 p-6 rounded-lg border border-slate-700 space-y-4">
+        <div class="flex items-start space-x-3">
+          <i class="fa-solid fa-circle-check text-emerald-400 mt-1"></i>
+          <div>
+            <h4 class="font-bold text-slate-100">Above-Request Approvals Justified</h4>
+            <p class="text-slate-400 text-sm">Keystone East (+$41.4M), QCC (+$3.7M), and HPP (+$24.8M) were approved above initial requests due to confirmed higher member morbidity and sicker risk pools.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-3">
+          <i class="fa-solid fa-circle-check text-emerald-400 mt-1"></i>
+          <div>
+            <h4 class="font-bold text-slate-100">Ambetter Transfer Volume</h4>
+            <p class="text-slate-400 text-sm">Ambetter (HIOS 86199) is the largest single risk-adjustment recipient in PA at +$61.1M, reflecting high medical loss experience.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 4: Vertical Integration Divide -->
+    <section class="slide">
+      <h2 class="text-3xl font-bold text-white mb-4">Vertical Integration vs. Independent Carriers</h2>
+      <p class="text-slate-300 mb-6">Market data indicates integrated health systems (e.g., UPMC, Geisinger) maintain pricing stability relative to independent regional carriers.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-slate-800 p-5 rounded-lg border border-slate-700">
+          <h3 class="text-lg font-bold text-blue-400 mb-2">Integrated System Mechanics</h3>
+          <p class="text-slate-300 text-sm">Internal clinical cost capture and provider alignment buffer integrated networks against external fee schedule inflation.</p>
+        </div>
+        <div class="bg-slate-800 p-5 rounded-lg border border-slate-700">
+          <h3 class="text-lg font-bold text-amber-400 mb-2">Independent Carrier Burden</h3>
+          <p class="text-slate-300 text-sm">Non-integrated plans face direct out-of-network costs and higher morbidity pressure, forcing higher rate increases.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 5: Compounded Rate Increases -->
+    <section class="slide">
+      <h2 class="text-3xl font-bold text-white mb-4">Two-Year Compounded Premium Impact</h2>
+      <p class="text-slate-300 mb-4">Cumulative rate actions over PY2026 and PY2027 show compounding effects on unassisted enrollees.</p>
+      <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
+        <p class="text-slate-300 text-sm mb-4">Formula: <code class="bg-slate-900 px-2 py-1 rounded text-blue-300">(1 + r_2026) * (1 + r_2027) - 1</code></p>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span>Keystone Health Plan East</span>
+              <span class="font-bold text-red-400">30.0% 2-Yr Compounded</span>
+            </div>
+            <div class="w-full bg-slate-700 h-2 rounded"><div class="bg-red-500 h-2 rounded" style="width: 30%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span>PA Health & Wellness (Ambetter)</span>
+              <span class="font-bold text-amber-400">35.3% 2-Yr Compounded</span>
+            </div>
+            <div class="w-full bg-slate-700 h-2 rounded"><div class="bg-amber-500 h-2 rounded" style="width: 35.3%"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 6: Enrollment Attrition Corrected -->
+    <section class="slide">
+      <h2 class="text-3xl font-bold text-white mb-4">Enrollment Reconciliation: Gross vs. Net</h2>
+      <div class="bg-slate-800 p-6 rounded-lg border border-slate-700 mb-6">
+        <h3 class="text-xl font-bold text-amber-400 mb-2">Reconciling the "1 in 3 Loss" Misconception</h3>
+        <p class="text-slate-300 text-sm mb-4">Public statements claiming 33% coverage loss conflate gross terminations (~203,000) with net marketplace exits. Gross numbers count mid-year plan switching and churn.</p>
+        <div class="grid grid-cols-2 gap-4 text-center">
+          <div class="bg-slate-900 p-4 rounded">
+            <div class="text-slate-400 text-xs">Peak Marketplace Enrollment</div>
+            <div class="text-2xl font-bold text-slate-100">497,000</div>
+          </div>
+          <div class="bg-slate-900 p-4 rounded">
+            <div class="text-slate-400 text-xs">Paid / Effectuated Enrollment</div>
+            <div class="text-2xl font-bold text-emerald-400">417,000</div>
+          </div>
+        </div>
+      </div>
+      <p class="text-slate-300 text-sm">True Net Attrition: <strong class="text-purple-400">16.09%</strong> (Retention: <strong>83.91%</strong>).</p>
+    </section>
+
+    <!-- Slide 7: Regional Rating Area Disparities -->
+    <section class="slide">
+      <h2 class="text-3xl font-bold text-white mb-4">Geographic Variance Across PA Rating Areas</h2>
+      <p class="text-slate-300 mb-4">Rate increases vary substantially by geographic rating area (RA1 through RA9).</p>
+      <div class="bg-slate-800 p-5 rounded-lg border border-slate-700 space-y-3">
+        <p class="text-slate-300 text-sm"><strong>Lehigh Valley (RA 6):</strong> High competition with 10 carriers present, but elevated premium spikes due to local hospital system pricing dynamics.</p>
+        <p class="text-slate-300 text-sm"><strong>Rural West & North (RA 1, RA 2):</strong> Concentrated carrier choice driven primarily by Highmark and UPMC.</p>
+      </div>
+    </section>
+
+    <!-- Slide 8: Reinsurance Deficit Analysis -->
+    <section class="slide">
+      <h2 class="text-3xl font-bold text-white mb-4">The $600M Reinsurance Funding Deficit</h2>
+      <p class="text-slate-300 mb-6">Pennsylvania's state-based reinsurance program faces structural unfunded liabilities for future plan years.</p>
+      <div class="bg-slate-800 p-5 rounded-lg border border-slate-700">
+        <h4 class="font-bold text-red-400 mb-2">Market Implications</h4>
+        <ul class="list-disc list-inside text-slate-300 text-sm space-y-2">
+          <li>Unfunded gaps increase risk premiums directly in baseline rate filings.</li>
+          <li>Hospitals and health systems absorb uncompensated care as subsidy margins compress.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Slide 9: Federal Policy & Immigrant Rules -->
+    <section class="slide">
+      <h2 class="text-3xl font-bold text-white mb-4">Federal Regulatory Changes Effective 2027</h2>
+      <div class="bg-slate-800 p-6 rounded-lg border border-slate-700 space-y-4">
+        <div>
+          <h4 class="font-bold text-blue-400">APTC / CSR Eligibility Shifts</h4>
+          <p class="text-slate-300 text-sm">New federal rules starting Jan 1, 2027 adjust eligibility criteria for specific non-citizen categories, creating risk of coverage disruption.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-amber-400">Elimination of Passive Auto-Renewal (PY2028 Horizon)</h4>
+          <p class="text-slate-300 text-sm">Preparations required for mandatory active re-enrollment in upcoming policy cycles.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 10: Consumer Guidance & Critical Actions -->
+    <section class="slide">
+      <h2 class="text-3xl font-bold text-white mb-4">Immediate Actions for Pennie Enrollees</h2>
+      <div class="space-y-4">
+        <div class="bg-slate-800 p-4 rounded-lg border border-slate-700 flex items-start space-x-3">
+          <i class="fa-solid fa-triangle-exclamation text-amber-400 text-xl mt-1"></i>
+          <div>
+            <h4 class="font-bold text-slate-100">Ambetter Bronze Tier Discontinuation</h4>
+            <p class="text-slate-300 text-sm">Ambetter has removed its Bronze plan tier for 2027. Members must select a new Bronze option by Dec 15, 2026 to avoid auto-upgrade premium shocks.</p>
+          </div>
+        </div>
+        <div class="bg-slate-800 p-4 rounded-lg border border-slate-700 flex items-start space-x-3">
+          <i class="fa-solid fa-phone text-blue-400 text-xl mt-1"></i>
+          <div>
+            <h4 class="font-bold text-slate-100">Pennie Customer Service Assistance</h4>
+            <p class="text-slate-300 text-sm">Call <strong>1-844-844-8040</strong> for certified navigator assistance before Open Enrollment deadlines.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 11: Legislative Recommendations -->
+    <section class="slide">
+      <h2 class="text-3xl font-bold text-white mb-4">State Policy & Oversight Recommendations</h2>
+      <div class="bg-slate-800 p-6 rounded-lg border border-slate-700 space-y-3">
+        <div class="p-3 bg-slate-900 rounded border border-slate-700">
+          <strong class="text-blue-400">1. Reinsurance Backfill:</strong> Legally authorize state general fund backfills to stabilize baseline rate proposals.
+        </div>
+        <div class="p-3 bg-slate-900 rounded border border-slate-700">
+          <strong class="text-blue-400">2. Discontinued Tier Protections:</strong> Require explicit 90-day consumer disclosures when carriers discontinue entire metal tiers.
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 12: Source Index & Verification Matrix -->
+    <section class="slide">
+      <h2 class="text-3xl font-bold text-white mb-4">Data Inventory & Source Citations</h2>
+      <div class="bg-slate-800 p-5 rounded-lg border border-slate-700 text-sm text-slate-300 space-y-2">
+        <p><strong>PID Rate Release:</strong> Official PID Decision Releases (Sep 19, 2026)</p>
+        <p><strong>CMS Risk Adjustment:</strong> CMS BY2025 Risk Adjustment Summary Report (June 2026)</p>
+        <p><strong>Pennie Marketplace Data:</strong> Pennie OE-2026 & Affordability Datasets</p>
+        <p><strong>Audit Tooling:</strong> Python ACAForensicAuditor engine</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Navigation Footer -->
+  <footer class="bg-slate-800 border-t border-slate-700 px-6 py-4 flex justify-between items-center">
+    <button id="prev-btn" class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-4 py-2 rounded text-sm font-semibold disabled:opacity-50" onclick="changeSlide(-1)" disabled>
+      <i class="fa-solid fa-arrow-left mr-2"></i> Previous
+    </button>
+    <div class="text-xs text-slate-500">PA ACA PY2027 Internal Audit Package</div>
+    <button id="next-btn" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded text-sm font-semibold" onclick="changeSlide(1)">
+      Next <i class="fa-solid fa-arrow-right ml-2"></i>
+    </button>
+  </footer>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+      slides.forEach((s, i) => {
+        s.classList.toggle('active', i === index);
+      });
+      document.getElementById('current-slide').textContent = index + 1;
+      document.getElementById('prev-btn').disabled = index === 0;
+      document.getElementById('next-btn').disabled = index === totalSlides - 1;
+    }
+
+    function changeSlide(direction) {
+      currentSlide = Math.max(0, Math.min(totalSlides - 1, currentSlide + direction));
+      showSlide(currentSlide);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'Space') changeSlide(1);
+      if (e.key === 'ArrowLeft') changeSlide(-1);
+    });
+  </script>
+</body>
+</html>
