@@ -8,7 +8,9 @@ BASE: Path = Path("./tmp_onepagers/pa_ra_onepagers")
 ds: Dict[str, Any] = json.loads((BASE / "data/pa_ra_dataset.json").read_text())
 
 ind: List[Dict[str, Any]] = ds["individual"]
-ind_2026_only: List[Dict[str, Any]] = ds.get("individual_2026_only", [])
+# Fix: Handle ind_2026_only as a dict and extract values to a list
+raw_2026 = ds.get("individual_2026_only", [])
+ind_2026_only: List[Dict[str, Any]] = list(raw_2026.values()) if isinstance(raw_2026, dict) else raw_2026
 ind_full: List[Dict[str, Any]] = ind + ind_2026_only
 
 sg: List[Dict[str, Any]] = ds["small_group"]
