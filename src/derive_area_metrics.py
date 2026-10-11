@@ -8,6 +8,9 @@ BASE: Path = Path("./tmp_onepagers/pa_ra_onepagers")
 ds: Dict[str, Any] = json.loads((BASE / "data/pa_ra_dataset.json").read_text())
 
 ind: List[Dict[str, Any]] = ds["individual"]
+ind_2026_only: List[Dict[str, Any]] = ds.get("individual_2026_only", [])
+ind_full: List[Dict[str, Any]] = ind + ind_2026_only
+
 sg: List[Dict[str, Any]] = ds["small_group"]
 areas: Dict[str, List[str]] = ds["areas"]
 
@@ -54,17 +57,17 @@ ranked = sorted(A, key=lambda a: -(A[a]["mix_approved"] or 0))
 for i, a in enumerate(ranked, 1):
     A[a]["rank_mix_1_is_highest"] = i
 
-def state_mix(rows: List[Dict[str, Any]], key: str, total_universe: Optional[List[Dict[str, Any]]] = None) -> float:
-    universe = total_universe if total_universe is not None else rows
-    total_weight = sum(r["share26"] for r in universe)
-    valid_sum = sum(r["share26"] * r[key] for r in rows if r.get(key) is not None)
+def state_mix(rows: List[Dict[str, Any]], key: str) -> float:
+    valid_rows = [r for r in rows if r.get(key) is not None]
+    total_weight = sum(r["share26"] for r in valid_rows)
+    valid_sum = sum(r["share26"] * r[key] for r in valid_rows)
     return valid_sum / total_weight if total_weight > 0 else 0.0
 
 chk = {
-    "ind27": state_mix([r for r in ind if r.get("app27") is not None], "app27", total_universe=ind),
-    "sg27": state_mix([r for r in sg if r.get("app27") is not None], "app27", total_universe=sg),
-    "ind27req": state_mix([r for r in ind if r.get("req27") is not None], "req27", total_universe=ind),
-    "ind26": state_mix([r for r in ind if r.get("app26") is not None], "app26", total_universe=ind),
+    "ind27": state_mix(ind_full, "app27"),
+    "sg27": state_mix(sg, "app27"),
+    "ind27req": state_mix(ind_full, "req27"),
+    "ind26": state_mix(ind_full, "app26"),
 }
 A["_checks"] = chk
 out = BASE / "data/derived_area_metrics.json"
