@@ -1,29 +1,18 @@
 #!/usr/bin/env python3
-"""Generate derived_area_metrics.json for wiki generator.
-Hardened Version: Carter"""
+"""Generate derived_area_metrics.json for wiki generator."""
 import json
-import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-# Resolve BASE relative to script location to prevent CWD crashes
-BASE: Path = Path(__file__).resolve().parents[1] / "tmp_onepagers/pa_ra_onepagers"
-
-try:
-    ds: Dict[str, Any] = json.loads((BASE / "data/pa_ra_dataset.json").read_text())
-except FileNotFoundError:
-    print(f"[!] CRITICAL: Dataset not found at {BASE / 'data/pa_ra_dataset.json'}")
-    sys.exit(1)
+BASE: Path = Path("./tmp_onepagers/pa_ra_onepagers")
+ds: Dict[str, Any] = json.loads((BASE / "data/pa_ra_dataset.json").read_text())
 
 ind: List[Dict[str, Any]] = ds["individual"]
 sg: List[Dict[str, Any]] = ds["small_group"]
 areas: Dict[str, List[str]] = ds["areas"]
 
 county_to_area: Dict[str, str] = {c: a for a, cs in areas.items() for c in cs}
-if len(county_to_area) != 67:
-    print(f"[!] DATA INTEGRITY ERROR: Expected 67 counties, found {len(county_to_area)}.")
-    # Diagnostic: Identify missing or extra counties here if necessary
-    sys.exit(1)
+assert len(county_to_area) == 67, f"Expected 67 counties, got {len(county_to_area)}"
 
 def mix(filers: List[Dict[str, Any]]) -> Optional[float]:
     w: float = sum(f["share26"] for f in filers)
@@ -80,6 +69,5 @@ chk = {
 A["_checks"] = chk
 out = BASE / "data/derived_area_metrics.json"
 out.write_text(json.dumps(A, indent=2) + "\n")
-
-# Output formatted for the validator script
-print(f"RESULT_JSON: {json.dumps({k: round(v, 4) for k, v in chk.items()})}")
+print("CHECKS:", {k: round(v, 2) for k, v in chk.items()})
+print("TARGETS: ind27=15.97  sg27=10.28  ind27req=17.14  ind26=21.5")

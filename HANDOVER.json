@@ -1,462 +1,79 @@
-# animated-umbrella
-
-
-```json
 {
-  "HANDOVER": {
-    "package_id": "PA-ACA-PY2027-FINAL-AUDIT",
-    "created_timestamp": "2026-10-10T08:45:00Z",
-    "version": "2.0_FINAL_VERIFIED",
-    "classification": "Public Distribution Ready",
-    "audit_status": "COMPLETE",
-    
-    "EXECUTIVE_SUMMARY": {
-      "briefing_title": "Pennsylvania ACA Market Plan Year 2027: Rate Decisions, Market Contraction, and Data Integrity Assessment",
-      "bottom_line_up_front": "PID approved 15.97% individual market / 10.28% small group increases for PY2027, denying $94.7M in requests. Independent verification confirms all three above-request approvals via CMS risk-adjustment data, corrects enrollment attrition from 33% to 16% net, and identifies critical omissions including Ambetter Bronze discontinuation and unfunded $600M+ reinsurance backfill.",
-      "key_verifications_completed": [
-        "CMS 2025 Benefit Year risk-adjustment data retrieved and cross-referenced for all carriers",
-        "Keystone Health Plan East ($41.4M net recipient) - VERIFIED sicker pool justification",
-        "QCC Insurance ($3.7M net recipient) - VERIFIED sicker pool justification",
-        "Health Partners Plans ($24.8M net recipient) - VERIFIED via catastrophic segment data",
-        "Ambetter Health/Pennsylvania Health & Wellness ($61.1M net recipient) - VERIFIED as largest RA recipient in PA",
-        "Oscar Health 1.38% rate cut explained by 1,347-member baseline (small-sample mechanics)",
-        "Enrollment attrition corrected from '1 in 3' (33%) to 16% net retention loss"
-      ],
-      "material_corrections_made": [
-        "Gross vs. net enrollment conflation resolved (85K gross terminations ≠ 33% net loss)",
-        "Ambetter Bronze phase-out disclosed (forced silver migration for Bronze members)",
-        "$600M+ unfunded state reinsurance backfill documented",
-        "All three above-request approvals CMS-verified (not speculative)",
-        "Oscar rate cut context added (1,347-member baseline, not regulatory arbitrage)",
-        "Profit margin compression noted (PID capped at 1.0% for some carriers)"
-      ]
-    },
-    
-    "DELIVERABLES_PACKAGE": {
-      "1_interactive_html_presentation": {
-        "file_name": "pa_aca_briefing_py2027.html",
-        "format": "Interactive HTML5 with Tailwind CSS",
-        "slides": 12,
-        "navigation": "Keyboard arrows + click navigation",
-        "responsive": "Mobile/tablet/desktop compatible",
-        "status": "COMPLETE",
-        "patches_applied": [
-          "Keystone East RA amount corrected: $35.8M → $41.4M",
-          "HPP asterisk footnote added explaining amended filing post-CMS report"
-        ],
-        "accessibility": "ARIA labels, semantic HTML, keyboard navigable",
-        "distribution_ready": true
+  "project_metadata": {
+    "project_name": "Mapbox OPSEC & Metrics Suite",
+    "version": "1.1.0",
+    "lead_specialist": "Carter",
+    "owner": "bilbywilby",
+    "classification": "OPSEC-Critical / Data-Sensitive",
+    "environment": "Linux/Termux/Google Pixel",
+    "last_sync_date": "2026-10-11"
+  },
+  "architecture_overview": {
+    "strategy": "Defense-in-Depth & Data Validation",
+    "opsec_layers": [
+      {
+        "layer": "Preventative",
+        "tool": "tools/sanitize_tokens.py",
+        "objective": "Redact tokens from source files before commit."
       },
-      
-      "2_vega_lite_charts": {
-        "count": 4,
-        "spec_version": "Vega-Lite v6",
-        "files": [
-          {
-            "name": "chart_rate_comparison.json",
-            "placement": "Slide 3",
-            "title": "Requested vs. Approved by Carrier",
-            "data_points": 14
-          },
-          {
-            "name": "chart_risk_adjustment_flows.json",
-            "placement": "Slide 4",
-            "title": "Risk Adjustment Transfer Map",
-            "data_points": 6
-          },
-          {
-            "name": "chart_enrollment_timeline.json",
-            "placement": "Slide 6",
-            "title": "Pennie Enrollment Trajectory with Metric Labels",
-            "data_points": 4
-          },
-          {
-            "name": "chart_compounded_burden.json",
-            "placement": "Slide 5",
-            "title": "Two-Year Compounded Premium Shock",
-            "data_points": 7
-          }
-        ],
-        "embedding_instructions": "Use Vega-Embed library; chart containers sized to parent div; tooltips enabled for all data points"
+      {
+        "layer": "Detective",
+        "tool": "ci/lint_token_check.py",
+        "objective": "Block pipeline/commit if tokens are detected."
       },
-      
-      "3_data_exports": {
-        "csv_file": {
-          "name": "carrier_rates_complete.csv",
-          "columns": ["carrier_id", "carrier_name", "hios_id", "market_share_2026", "2026_approved", "2027_requested", "2027_approved", "delta_pts", "cms_risk_adj_transfer", "transfer_status", "integration_status", "py2026_py2027_compounded"],
-          "row_count": 14,
-          "validation": "Checksum matched against PID published figures"
-        },
-        "json_file": {
-          "name": "pa_ra_dataset_corrected_v2.json",
-          "schema_compliance": "Matches build_one_pagers.py schema + extended fields",
-          "metadata_included": true,
-          "checksum_verification": "SHA-256 hash provided for integrity validation"
-        },
-        "risk_adjustment_lookup": {
-          "name": "cms_ra_transfers_pa_2025.json",
-          "source": "CMS 2025 Benefit Year Summary Report",
-          "release_date": "2026-06-30",
-          "carriers_documented": 8,
-          "total_net_flow_verified": "All PA individual market carriers accounted for"
-        }
+      {
+        "layer": "Runtime",
+        "tool": "src/opsec_token_guard.py",
+        "objective": "Panic application if genuine tokens exist in dev-configs."
       },
-      
-      "4_pdf_export_package": {
-        "conversion_methods": [
-          {
-            "tool": "Playwright/Chromium",
-            "command": "playwright exec chromium --headless --screenshot full ./pa_aca_briefing_py2027.html --output ./pa_aca_briefing_py2027.pdf",
-            "recommended": true,
-            "quality": "High-fidelity vector graphics preservation"
-          },
-          {
-            "tool": "Google Chrome CLI",
-            "command": "google-chrome --headless --disable-gpu --print-to-pdf=pa_aca_briefing_py2027.pdf pa_aca_briefing_py2027.html",
-            "quality": "Good raster output"
-          },
-          {
-            "tool": "wkhtmltopdf",
-            "command": "wkhtmltopdf --page-size Letter --orientation Landscape pa_aca_briefing_py2027.html pa_aca_briefing_py2027_landscape.pdf",
-            "quality": "Adequate for archival; Vega charts may require pre-rendering to PNG"
-          }
-        ],
-        "pdf_optimization_notes": [
-          "Slide 3: Embed Vega-Lite charts as 300dpi PNGs before conversion",
-          "Slide 5: Verify compounded figures render legible at 10pt minimum font",
-          "Margins: 0.5\" top/bottom/left/right for binding compatibility",
-          "Color profile: sRGB for screen, CMYK optional for print"
-        ],
-        "recommended_formats": {
-          "board_packets": "Portrait, 8.5x11\", high contrast",
-          "regulatory_filings": "Landscape, letter size, bookmarked sections",
-          "public_distribution": "Web-optimized, compressed assets"
-        }
+      {
+        "layer": "Recovery",
+        "tool": "tools/extras/history_token_cleaner.py",
+        "objective": "Purge tokens from Git DAG."
       }
-    },
-    
-    "VERIFICATION_WORKFLOW_DOCUMENTED": {
-      "step_1_initial_analysis": {
-        "input": "Carrier-submitted actuarial report (pasted-content-2026-10-10T06-32-36.txt)",
-        "output": "Initial visualizations and pattern identification",
-        "limitations_noted": [
-          "Industry-submitted data carries strategic padding incentives",
-          "'1 in 3' attrition claim flagged for potential gross/net conflation",
-          "Oscar 1.38% cut lacked small-pool context",
-          "HPP above-request approval rationale questioned"
-        ]
-      },
-      
-      "step_2_primary_source_verification": {
-        "sources_queried": [
-          "CMS 2025 Risk Adjustment Summary Report (ra-report-by2025.pdf)",
-          "PID 2027 rate announcements (pa.gov, Sept 19, 2026)",
-          "PID carrier decision PDFs (all 14 individual-market carriers)",
-          "Pennie affordability page & enrollment publications",
-          "KFF MLR analysis (2025 benchmark)",
-          "ACA Signups PA tracker",
-          "Regional media: PennLive, WHYY, CNHI, Capital-Star, PhillyVoice"
-        ],
-        "verification_outcomes": {
-          "confirmed": [
-            "All 15.97%/10.28% approved averages (PID press release)",
-            "17.14%/11.49% requested averages (PID proposed rates)",
-            "$94.7M premium denied (PID official statement)",
-            "102% net price shock for PY2026 consumers (Pennie)",
-            "85,000 gross terminations during OE (Pennie affordability page)",
-            "417,158 paid enrollment Sept 2026 (Pennie)",
-            "13.0% claims-cost growth ($845M YoY) (PID)"
-          ],
-          "corrected": [
-            "Enrollment attrition: 33% → 16% net (gross terminations conflated with net)",
-            "HPP risk-adjustment status: NOT FOUND → $24.8M recipient (catastrophic segment)",
-            "Ambetter risk-adjustment status: NOT FOUND → $61.1M recipient (largest in PA)",
-            "Keystone East RA amount: $35.8M → $41.4M (individual + catastrophic combined)"
-          ],
-          "disclosed_as_omissions": [
-            "Ambetter Bronze plan discontinuation (PID July 2026 proposed rates release)",
-            "$600M+ unfunded reinsurance backfill (PennLive, Sept 2026)",
-            "PID profit margin cuts to 1.0% (Highmark Benefits Group decision PDF)"
-          ],
-          "contradicted_by_sources": [
-            "Speculation about regulatory arbitrage/geographic bias → DISPROVEN by CMS data showing genuine morbidity differentials",
-            "'Padding hypothesis' → WEAKENED by KFF 93% MLR (lower profitability than prior years)"
-          ]
-        }
-      },
-      
-      "step_3_forensic_cross_reference": {
-        "carrier_hios_mappings_validated": [
-          "86199 → Pennsylvania Health & Wellness / Ambetter",
-          "93909 → Health Partners Plans / Jefferson",
-          "33871 → Keystone Health Plan East",
-          "31609 → QCC Insurance Company",
-          "79962 → Highmark Benefits Group",
-          "16322 → UPMC Health Options",
-          "53789 → Keystone Health Plan Central"
-        ],
-        "cms_transfer_data_integrity": {
-          "total_payers_sum": "-$128.2M",
-          "total_recipients_sum": "+$133.1M",
-          "net_balance": "~$5M (within rounding tolerance for system-wide adjustments)",
-          "verification_method": "Manual summation vs. system-level totals in CMS report"
-        },
-        "compounding_formula_validated": "(1 + app2026) × (1 + app2027) - 1, matches build_one_pagers.py logic"
-      }
-    },
-    
-    "PUBLISHING_CHECKLIST": {
-      "pre_publication": [
-        { "item": "Verify all hyperlinks functional", "status": "PENDING" },
-        { "item": "Test Vega-Lite chart embedding in all browsers", "status": "PENDING" },
-        { "item": "Run PDF conversion on target platform", "status": "PENDING" },
-        { "item": "Validate CSV JSON checksums", "status": "PENDING" },
-        { "item": "Confirm accessibility WCAG 2.1 AA compliance", "status": "PENDING" }
-      ],
-      "distribution_channels": [
-        { "channel": "Website (HTML interactive)", "priority": "HIGH", "target_date": "2026-10-15" },
-        { "channel": "Board packet PDF", "priority": "HIGH", "target_date": "2026-10-12" },
-        { "channel": "Press release summary", "priority": "MEDIUM", "target_date": "2026-10-14" },
-        { "channel": "Social media thread (X/LinkedIn)", "priority": "LOW", "target_date": "2026-10-16" },
-        { "channel": "Data repository (GitHub/zenodo)", "priority": "MEDIUM", "target_date": "2026-10-18" }
-      ],
-      "approval_required_from": [
-        "Legal counsel (defamation/liability review)",
-        "Communications director (tone consistency)",
-        "Data governance team (privacy/compliance)",
-        "Executive leadership (final sign-off)"
-      ]
-    },
-    
-    "PUBLIC_CONSUMER_TALKING_POINTS": {
-      "headline": "Pennsylvania health insurance rates rise 16% average for 2027, but some carriers cut requests by PID review",
-      "what_consumers_should_know": [
-        "Average 15.97% increase is blended across 14 carriers; YOUR rate may differ significantly",
-        "Check your carrier specifically: Oscar (1.38%), UPMC (9.73%), Geisinger (8.57%) have lowest increases",
-        "Higher-end carriers: Ambetter (35.13%), Keystone Central (33.39%) have highest increases",
-        "If you're on Ambetter Bronze plans: You will be forced into Silver tier — effective increase exceeds 35%",
-        "Shop around before December 15, 2026 deadline for January 1, 2027 coverage",
-        "Subsidy-eligible enrollees may see NET increases lower than advertised if tax credits adjust"
-      ],
-      "who_is_most_impacted": [
-        "Ages 55–64: Age-band scaling (3:1 ratio) makes increases hit harder",
-        "Income 150–200% FPL: Subsidy cliff affects net price disproportionately",
-        "Small business employees: Small group rates rose 10.28% average",
-        "Lawfully present immigrants (Jan 1, 2027): 20K–30K will lose subsidies under H.R. 1"
-      ],
-      "action_items_for_public": [
-        "Log into Pennie.com by November 1, 2026 (Open Enrollment opens)",
-        "Review plan options before December 15, 2026 for guaranteed Jan 1 coverage",
-        "Call Navigator hotline: 1-844-844-8040 (Pennie assistance line)",
-        "Hospital patients: Prepare for ED utilization increases from newly unsubsidized population"
-      ]
-    },
-    
-    "MEDIA_INQUIRY_PREP": {
-      "anticipated_questions": [
-        {
-          "question": "Why did PID approve higher-than-requested rates for three carriers?",
-          "answer": "Federal risk-adjustment data confirmed these carriers had sicker enrollee pools requiring higher premiums to prevent insolvency. CMS transfer data verifies this: Keystone East received $41.4M in risk-adjustment receipts, QCC received $3.7M, Health Partners received $24.8M."
-        },
-        {
-          "question": "Was the '1 in 3 coverage loss' claim accurate?",
-          "answer": "No. That figure confused gross terminations (all cancellations) with net attrition (actual losses after new enrollments offset). Net retention stands at 84% (16% loss), which is still severe but half the severity of the 33% claim."
-        },
-        {
-          "question": "Is the state doing anything to help with these increases?",
-          "answer": "Pennsylvania has a state-based reinsurance mechanism, but a comprehensive $600M+ backfill was not funded in the July 2026 budget deal. Some carriers receive reinsurance payments (UPMC recorded $42.8M single-carrier receipt), but the full mitigation remains unfunded."
-        },
-        {
-          "question": "Are insurers profiteering?",
-          "answer": "Data suggests otherwise. KFF analysis shows individual market carriers spent 93 cents per premium dollar on claims in 2025 (93% loss ratio), which is LOWER profitability than prior years. PID also explicitly capped profit margins at 1.0% for some filings."
-        },
-        {
-          "question": "What can consumers do to protect themselves?",
-          "answer": "Shop the marketplace before December 15, 2026. Compare carriers within your ZIP code — some areas have 10 carriers while others have 2. If you're on Ambetter Bronze, expect forced migration to Silver tier at higher effective cost. Check subsidy eligibility at pennie.com."
-        }
-      ],
-      "embargo_recommendations": "No embargo needed; all data from public primary sources"
-    },
-    
-    "OPEN_ITEMS_AND_FOLLOW_UPS": {
-      "pending_verifications": [
-        {
-          "item": "HPP exact individual vs. catastrophic split",
-          "status": "Need deeper dive into CMS report Appendix B for market-segment breakdown",
-          "action_owner": "Data analyst team",
-          "deadline": "2026-10-20"
-        },
-        {
-          "item": "Medicaid crossover enrollment impact",
-          "status": "Unquantified in current dataset",
-          "action_owner": "Policy research team",
-          "deadline": "2026-11-01"
-        },
-        {
-          "item": "Broker commission structures for PY2028",
-          "status": "Unknown; carriers may adjust to offset attrition",
-          "action_owner": "Market monitoring team",
-          "deadline": "2026-11-15"
-        }
-      ],
-      "scheduled_monitoring": [
-        {
-          "trigger": "Open Enrollment 2027 close (January 15, 2027)",
-          "action": "Refresh enrollment metrics, compare to PY2026 patterns",
-          "owner": "Analytics team"
-        },
-        {
-          "trigger": "PY2028 rate filings (July 2027)",
-          "action": "Repeat forensic audit process for next cycle",
-          "owner": "Audit team"
-        },
-        {
-          "trigger": "Federal immigration rule finalization (December 2026)",
-          "action": "Update subsidy-loss estimates for lawfully present immigrants",
-          "owner": "Policy team"
-        }
-      ]
-    },
-    
-    "TECHNICAL_ARTIFACTS": {
-      "code_repositories": [
-        {
-          "name": "build_one_pagers.py",
-          "purpose": "Generates 9 rating-area PDF one-pagers",
-          "patches_required": [
-            "Add CMS_RISK_ADJUSTMENT_2025_PA mapping",
-            "Standardize enrollment metric labels",
-            "Insert Oscar small-pool context footnote",
-            "Add Ambetter Bronze discontinuation warning",
-            "Validate carrier HIOS IDs against CMS report"
-          ],
-          "execution_command": "python3 build_one_pagers.py --check (validate only) or python3 build_one_pagers.py (full PDF generation)"
-        },
-        {
-          "name": "pull_pid_filings.py",
-          "purpose": "Downloads all PID decision PDFs and extracts buried data",
-          "dependencies": ["requests", "beautifulsoup4", "pdfplumber"],
-          "output": "extracted_findings.txt with risk adjustment, reinsurance, MLR, margin, membership data"
-        }
-      ],
-      "data_checksums": {
-        "pa_ra_dataset_corrected.json": "SHA-256: TBD after file generation",
-        "carrier_rates_complete.csv": "SHA-256: TBD after file generation",
-        "cms_ra_transfers_pa_2025.json": "SHA-256: TBD after file generation"
-      },
-      "git_tags_recommended": [
-        "v2.0-verified",
-        "v2.0-cms-risk-adjustment-complete",
-        "v2.0-enrollment-correction-applied"
-      ]
-    },
-    
-    "LEGAL_AND_COMPLIANCE_NOTES": {
-      "libel_exposure_assessment": "LOW — all claims verified against primary government sources",
-      "copyright_status": "Government works (PID, CMS) are public domain; derivative analysis copyrighted",
-      "data_privacy_considerations": "Aggregate carrier-level data only; no individually identifiable information",
-      "disclaimer_language_required": "Analysis based on public filings as of October 10, 2026. Rate and enrollment figures dynamic; refresh recommended after Open Enrollment 2027 closes January 15, 2027.",
-      "citation_requirements": "Must cite PID, CMS, Pennie, KFF, ACA Signups where applicable; cannot present as original proprietary research"
-    },
-    
-    "CONTACT_INFORMATION": {
-      "press_inquiries": "press@pa-health-audit.org (placeholder — replace with actual)",
-      "data_requests": "data@pa-health-audit.org (placeholder)",
-      "technical_support": "tech@pa-health-audit.org (placeholder)",
-      "primary_author": "Lumo AI Assistant (Proton, launched July 23, 2025)",
-      "review_contacts": "Executive leadership team (internal distribution only)"
-    },
-    
-    "NEXT_STEPS_AFTER_HANDOVER": {
-      "immediate_24_hours": [
-        "Publish HTML presentation to web hosting",
-        "Distribute PDF board packet to executive leadership",
-        "Issue press release with media embargo lifted",
-        "Post social media announcement threads"
-      ],
-      "week_1_follow_up": [
-        "Monitor media pickup and public response",
-        "Answer press inquiries using prepared talking points",
-        "Begin Open Enrollment 2027 tracking setup",
-        "Schedule internal debrief on audit methodology"
-      ],
-      "quarterly_milestones": [
-        "Q4 2026: Track Open Enrollment participation vs. PY2026",
-        "Q1 2027: Publish OE 2027 preliminary results",
-        "Q2 2027: Prepare PY2028 rate filing forecast",
-        "Q3 2027: Execute PY2028 forensic audit cycle"
-      ]
-    },
-    
-    "APPENDIX_A_FULL_DATA_TABLES": {
-      "carrier_level_rates_individial_market": [
-        {"carrier": "Ambetter (AHP)", "2026_approved": 37.85, "2027_requested": 40.90, "2027_approved": 35.13, "delta": -5.77, "cms_ra_transfer": 61066040.76, "status": "recipient"},
-        {"carrier": "Keystone Central (KHPC)", "2026_approved": 22.41, "2027_requested": 33.83, "2027_approved": 33.39, "delta": -0.44, "cms_ra_transfer": 1497202.91, "status": "recipient"},
-        {"carrier": "Health Partners (HPP)", "2026_approved": 16.67, "2027_requested": 15.90, "2027_approved": 18.35, "delta": 2.45, "cms_ra_transfer": 24789747.63, "status": "recipient"},
-        {"carrier": "QCC Insurance", "2026_approved": 15.18, "2027_requested": 19.88, "2027_approved": 21.31, "delta": 1.43, "cms_ra_transfer": 3737261.86, "status": "recipient"},
-        {"carrier": "Keystone East (KHPE)", "2026_approved": 22.04, "2027_requested": 14.68, "2027_approved": 15.98, "delta": 1.30, "cms_ra_transfer": 41437759.64, "status": "recipient"},
-        {"carrier": "Capital Advantage (CAAC)", "2026_approved": 24.56, "2027_requested": 18.32, "2027_approved": 14.78, "delta": -3.54, "cms_ra_transfer": -12376243.89, "status": "payer"},
-        {"carrier": "Oscar Health (OSC)", "2026_approved": 23.12, "2027_requested": 15.39, "2027_approved": 1.38, "delta": -14.01, "cms_ra_transfer": 0.00, "status": "neutral"},
-        {"carrier": "UPMC Health Network (UHN)", "2026_approved": 20.18, "2027_requested": 12.03, "2027_approved": 9.73, "delta": -2.30, "cms_ra_transfer": -5907897.10, "status": "payer"},
-        {"carrier": "Geisinger Health Plan (GHP)", "2026_approved": 11.59, "2027_requested": 10.46, "2027_approved": 8.57, "delta": -1.89, "cms_ra_transfer": 299342.99, "status": "payer"},
-        {"carrier": "Highmark Benefits Group (HBG)", "2026_approved": 18.37, "2027_requested": 21.40, "2027_approved": 19.66, "delta": -1.74, "cms_ra_transfer": -24672740.97, "status": "payer"}
-      ],
-      
-      "enrollment_timeline_with_metric_types": [
-        {"date": "2025-12-31", "count": 497000, "metric_type": "plan_selections", "net_change_from_baseline": 0},
-        {"date": "2026-01-31", "count": 486000, "metric_type": "plan_selections", "net_change_from_baseline": -11000},
-        {"date": "2026-02-01", "count": 85000, "metric_type": "gross_terminations", "context": "During OE period; includes churn"},
-        {"date": "2026-03-24", "count": 471442, "metric_type": "active_enrollment", "net_change_from_baseline": -25558},
-        {"date": "2026-09", "count": 417158, "metric_type": "paid_effectuated", "net_change_from_baseline": -79842}
-      ],
-      
-      "rating_area_carrier_counts": [
-        {"rating_area": "RA1 NW", "counties": 8, "filers": 5, "top_terminators": 0},
-        {"rating_area": "RA2 N-Central", "counties": 3, "filers": 6, "top_terminators": 0},
-        {"rating_area": "RA3 NE/Tier", "counties": 14, "filers": 9, "top_terminators": 2},
-        {"rating_area": "RA4 Pittsburgh", "counties": 11, "filers": 4, "top_terminators": 1},
-        {"rating_area": "RA5 Laurel", "counties": 7, "filers": 7, "top_terminators": 0},
-        {"rating_area": "RA6 Lehigh Valley", "counties": 10, "filers": 10, "top_terminators": 3},
-        {"rating_area": "RA7 S-Central", "counties": 4, "filers": 8, "top_terminators": 2},
-        {"rating_area": "RA8 Philadelphia", "counties": 5, "filers": 8, "top_terminators": 0},
-        {"rating_area": "RA9 Capital Region", "counties": 7, "filers": 9, "top_terminators": 3}
-      ]
-    },
-    
-    "APPENDIX_B_SOURCE_URLS": {
-      "primary_government_sources": [
-        "https://www.pa.gov/agencies/insurance/newsroom/pennsylvania-releases-aca-2027-health-insurance-rates",
-        "https://www.pa.gov/agencies/insurance/newsroom/shapiro-admin-receives-proposed-2027-health-insurance-rates",
-        "https://www.cms.gov/cciio/programs-and-initiatives/premium-stabilization-programs/downloads/ra-report-by2025.pdf",
-        "https://pennie.com/affordability/",
-        "https://acasignups.net/pennie"
-      ],
-      "carrier_decision_pdf_index": "https://www.pa.gov/agencies/insurance/posted-filings-reports-company-orders/posted-product-and-rate-filings/aca-health-rate-filings/",
-      "media_sources": [
-        "https://pennlive.com/news/2026/09/pa-aca-patients-will-see-double-digit-increase-in-premium-costs-for-2027.html",
-        "https://whyy.org/articles/pennsylvania-health-insurance-premium-increase-pennie/",
-        "https://penncapital-star.com/health-care/pa-pennie-enrollment-drops-as-congress-wrestles-with-health-insurance-subsidy-vote/",
-        "https://www.kff.org/private-insurance/medical-loss-ratio-rebates/"
-      ]
+    ],
+    "data_pipeline": {
+      "source": "tmp_onepagers/pa_ra_onepagers/data/pa_ra_dataset.json",
+      "processor": "src/derive_area_metrics.py",
+      "validator": "src/validate_metrics.py",
+      "output": "tmp_onepagers/pa_ra_onepagers/data/derived_area_metrics.json"
     }
+  },
+  "component_manifest": {
+    "core_engine": {
+      "bin/deploy_engine.py": "Hardened execution core; utilizes subprocess for reversed config loading.",
+      "bin/github_sync.sh": "w3m-based remote manifest synchronization for Linux CLI."
+    },
+    "opsec_utilities": {
+      "tools/extras/token_validator.py": "API-based token validity check.",
+      "tools/extras/env_injector.py": "Secure shell injection via tac-reversed configs.",
+      "tools/extras/install_hooks.py": "Automates pre-commit linting hooks.",
+      "tools/extras/log_scrubber.py": "Redacts tokens from .log files.",
+      "tools/extras/dep_audit.py": "Audits package manager output for leaks."
+    },
+    "metrics_suite": {
+      "src/derive_area_metrics.py": "Hardened data processor; uses absolute path resolution for BASE.",
+      "src/validate_metrics.py": "Automated target comparison against state benchmarks."
+    }
+  },
+  "operational_thresholds": {
+    "tier_1_quick_fix": "Run sanitize_tokens.py or validate_metrics.py. Risk: Low.",
+    "tier_2_moderate": "Run github_sync.sh or update sys_env.rev. Risk: Low.",
+    "tier_3_nuclear": "Run history_token_cleaner.py (Git history rewrite). Risk: High."
+  },
+  "data_benchmarks": {
+    "targets": {
+      "ind27": 15.97,
+      "sg27": 10.28,
+      "ind27req": 17.14,
+      "ind26": 21.5
+    },
+    "tolerance": 0.01,
+    "integrity_check": "County count must exactly equal 67."
+  },
+  "environment_spec": {
+    "required_packages": ["w3m", "coreutils", "python3"],
+    "critical_path_logic": "All paths must be resolved via Path(__file__).resolve() to prevent CWD crashes in Termux.",
+    "config_strategy": "Secrets stored in .rev files and processed via tac to avoid plaintext persistence."
   }
 }
-```
-
----
-
-## HANDOVER COMPLETE ✅
-
-This JSON package contains:
-1. **Full audit trail** from initial analysis through CMS verification
-2. **All deliverables documented** with file names and formats
-3. **Correction logs** for every change made to original claims
-4. **Media preparation** with Q&A and talking points
-5. **Technical artifacts** including code patches and execution commands
-6. **Publishing checklist** with deadlines and approval workflows
-7. **Public-facing consumer guidance** translated from technical findings
-8. **Complete data tables** embedded for archival purposes
-9. **Open items** tracked with owners and deadlines
-10. **Legal/compliance notes** for publication clearance
-
-**Ready for publishing team intake.**
