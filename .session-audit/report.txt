@@ -1,0 +1,58 @@
+=== PROJECT ===
+/data/data/com.termux/files/home/animated-umbrella
+
+=== PYTHON ===
+Python 3.14.6
+
+=== GIT BRANCH ===
+main
+
+=== GIT STATUS ===
+(exit 0; no output)
+
+=== RECENT COMMITS (oldest first) ===
+d87c774 fix: record and verify artifact SHA-256
+f443c28 feat: integrate PA health audit and CMS-verified rating areas
+b0851ad feat: integrate PA ACA rate audit suite and compounding tools
+0676835 feat: your description
+7803532 feat: your description
+6359237 feat: add CMS regression tests and sanitized baseline fixture
+7fa8686 feat: your description
+98c860a feat: your description
+
+=== GIT REMOTES (credentials redacted) ===
+origin https://github.com/bilbywilby/animated-umbrella.git (fetch)
+origin https://github.com/bilbywilby/animated-umbrella.git (push)
+
+=== KEY FILES ===
+PA_Health_Audit_Oct2026_Rating_Area_OnePagers.zip: 87279
+data/pa_ra_dataset.json: 17846
+HANDOVER.json: 25340
+pa_aca_briefing_py2027_final.html: 17368
+verify_cms.sh: 609
+build_one_pagers.py: missing
+
+=== DATASET CHECKS ===
+(none)
+Repository dataset: valid JSON; top-level keys=['metadata', 'statewide', 'individual_2026_only', 'individual', 'small_group', 'terminations_oe2026', 'areas', 'validation', 'cms_ra_transfers_2025', '_computed']
+  individual: 10 entries
+  small_group: 0 entries
+  areas: 9 entries
+  individual[0] keys=['id', 'short', 'name', 'approved_2027_rate', 'requested_2027', 'approved_2026', 'share26', 'hios_id', 'on_pennie', 'counties', 'areas_serving']
+  individual[0] expected fields={app26: False, share25: False, app27: False, share26: True}
+ZIP dataset entries: ['pa_ra_onepagers/data/pa_ra_dataset.json']
+ZIP dataset uncompressed size: 25839 bytes
+ZIP dataset: valid JSON; top-level keys=['meta', 'sources', 'areas', 'individual', 'individual_2026_only', 'small_group', 'terminations_oe2026', 'statewide', 'validation']
+  individual: 15 entries
+  small_group: 16 entries
+  areas: 9 entries
+  individual[0] keys=['id', 'name', 'short', 'on_pennie', 'req27', 'app27', 'share26', 'counties', 'req26', 'app26', 'share25']
+  individual[0] expected fields={app26: True, share25: True, app27: True, share26: True}
+  small_group[0] keys=['id', 'name', 'short', 'req27', 'app27', 'share26', 'counties']
+  small_group[0] expected fields={app26: False, share25: False, app27: True, share26: True}
+HANDOVER.json: invalid JSON (Expecting value: line 1 column 1 (char 0))
+
+=== WIKI MARKDOWN FILES ===
+Audit-Protocol-&-Methodology.md
+Data-Acquisition-&-Provenance.md
+Home.md

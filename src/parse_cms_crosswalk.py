@@ -1,48 +1,79 @@
 #!/usr/bin/env python3
-"""Parse CMS PA rating area crosswalk HTML and extract county→area mapping."""
+"""src/parse_cms_crosswalk.py - Python 3.14 compatible CMS parser."""
 
 import argparse
 import json
 import re
 import sys
 from pathlib import Path
-from typing import dict
+from typing import Dict, List, Tuple
 
-def parse_cms_html(html_file: Path) -> dict[str, str]:
-    """Extract county→area from CMS crosswalk HTML.
+def parse_cms_html(html_file: Path) -> Dict[str, str]:
+    """Extract county→area pairs using multiple fallback patterns."""
+    content = html_file.read_text(encoding="utf-8")
+    mapping: Dict[str, str] = {}
     
-    Returns: {"county_name": "area_number", ...}
-    Raises: ValueError if parsing fails.
-    """
-    with html_file.open("r", encoding="utf-8") as f:
-        text = f.read()
+    # Pattern 1: "County Name" → Area X
+    pattern1 = r'([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\s+(?:Rating\s+)?Area\s+(\d+)\b'
     
-    # Regex pattern: look for county names + area assignments
-    # Adjust based on actual CMS HTML structure
-    pattern = r'([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\s+(?:Rating\s+)?Area\s+(\d+)'
-    matches = re.findall(pattern, text)
+    # Pattern 2: Table cells (county in td, area in next td)
+    pattern2 = r'<td[^>]*>\s*([^<>]+)\s*</td>\s*<td[^>]*>\s*(\d+)\s*</td>'
     
-    if not matches:
-        raise ValueError("No county→area pairs found; verify HTML structure")
+    # Pattern 3: Data attributes
+    pattern3 = r'(county|area)["\']?\s*[:=]\s*["\']?([^"\'>]+)["\']?\s*[:=]\s*["\']?(\d+)'
     
-    mapping = {county: str(area) for county, area in matches}
+    patterns = [pattern1, pattern2, pattern3]
+    excluded = ['county', 'area', 'rating', 'state', 'pennsylvania', 'header']
+    
+    for pattern in patterns:
+        matches = re.findall(pattern, content, re.IGNORECASE)
+        for match in matches:
+            if len(match) >= 2:
+                county = match[0].strip()
+                area = match[-1].strip()
+                
+                if len(county) > 3 and county.lower() not in excluded:
+                    if county not in mapping:  # First pattern wins
+                        mapping[county] = str(area)
+    
     return mapping
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Parse CMS PA rating area crosswalk")
     parser.add_argument("--input", required=True, help="Path to cms_crosswalk.html")
-    parser.add_argument("--output", default="cms_county_to_area.json", help="Output JSON")
+    parser.add_argument("--output", default="data/cms_county_to_area.json", help="Output JSON")
+    parser.add_argument("--verbose", action="store_true", help="Show extraction stats")
     args = parser.parse_args()
     
+    input_path = Path(args.input)
+    if not input_path.exists():
+        sys.stderr.write(f"[ERROR] Input file not found: {input_path}\n")
+        return 1
+    
     try:
-        mapping = parse_cms_html(Path(args.input))
-        Path(args.output).write_text(json.dumps(mapping, indent=2, sort_keys=True))
-        print(f"✅ Extracted {len(mapping)} counties from CMS crosswalk")
+        mapping = parse_cms_html(input_path)
+        
+        if len(mapping) < 60:
+            sys.stderr.write(f"[WARN] Only {len(mapping)} counties; expected 67\n")
+            if mapping:
+                sys.stderr.write(f"[DEBUG] Sample: {list(mapping.items())[:5]}\n")
+        else:
+            print(f"✅ Extracted {len(mapping)} counties from CMS crosswalk")
+        
+        Path(args.output).parent.mkdir(parents=True, exist_ok=True)
+        Path(args.output).write_text(
+            json.dumps(mapping, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8"
+        )
+        
         print(f"   Output: {args.output}")
         return 0
+        
     except Exception as e:
         sys.stderr.write(f"[ERROR] {e}\n")
+        import traceback
+        traceback.print_exc()
         return 1
 
 if __name__ == "__main__":
