@@ -10,6 +10,11 @@ Covers:
 Run: pytest tests/test_anomaly_premium_integration.py -v
 Requires: pip install numpy pytest pytest-bdd tempfile
 """
+"""
+Production-Grade Comprehensive Test Suite for Pennsylvania Health Insurance Audit System
+Incorporating Property-Based Testing, Concurrency Isolation, and Strict Schema Enforcement.
+Run: pytest tests/test_anomaly_premium_integration.py -v --hypothesis-profile=ci
+Requires: pip install numpy pytest hypothesis pydantic
 
 # ==============================================================================
 # PART A: STATISTICAL & DECIMAL LOGIC UNIT TESTS
