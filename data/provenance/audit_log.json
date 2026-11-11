@@ -1,0 +1,21 @@
+{
+  "entries": [
+    {
+      "name": "Test Dataset",
+      "url": "https://example.com/test",
+      "file": "data/pa_rating_areas.json",
+      "tier": "VERIFIED",
+      "notes": "Verification of atomic write",
+      "timestamp_utc": "2026-10-10T14:24:33.767214+00:00"
+    },
+    {
+      "name": "Test Dataset",
+      "url": "https://example.com/test",
+      "file": "/data/data/com.termux/files/home/animated-umbrella/data/pa_rating_areas.json",
+      "sha256_hash": "596a424e4da516ff6a66dfce067bf0304d31ac4bcca80ec19ee5a5f03485622f",
+      "tier": "VERIFIED",
+      "notes": "Verification of atomic write",
+      "timestamp_utc": "2026-10-10T14:39:27.704560+00:00"
+    }
+  ]
+}

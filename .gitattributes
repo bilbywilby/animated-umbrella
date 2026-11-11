@@ -1,0 +1,3 @@
+# Auto-detect potential secrets
+*.html linguist-generated=true
+*.json linguist-generated=true

@@ -1,0 +1,79 @@
+{
+  "project_metadata": {
+    "project_name": "Mapbox OPSEC & Metrics Suite",
+    "version": "1.1.0",
+    "lead_specialist": "Carter",
+    "owner": "bilbywilby",
+    "classification": "OPSEC-Critical / Data-Sensitive",
+    "environment": "Linux/Termux/Google Pixel",
+    "last_sync_date": "2026-10-11"
+  },
+  "architecture_overview": {
+    "strategy": "Defense-in-Depth & Data Validation",
+    "opsec_layers": [
+      {
+        "layer": "Preventative",
+        "tool": "tools/sanitize_tokens.py",
+        "objective": "Redact tokens from source files before commit."
+      },
+      {
+        "layer": "Detective",
+        "tool": "ci/lint_token_check.py",
+        "objective": "Block pipeline/commit if tokens are detected."
+      },
+      {
+        "layer": "Runtime",
+        "tool": "src/opsec_token_guard.py",
+        "objective": "Panic application if genuine tokens exist in dev-configs."
+      },
+      {
+        "layer": "Recovery",
+        "tool": "tools/extras/history_token_cleaner.py",
+        "objective": "Purge tokens from Git DAG."
+      }
+    ],
+    "data_pipeline": {
+      "source": "tmp_onepagers/pa_ra_onepagers/data/pa_ra_dataset.json",
+      "processor": "src/derive_area_metrics.py",
+      "validator": "src/validate_metrics.py",
+      "output": "tmp_onepagers/pa_ra_onepagers/data/derived_area_metrics.json"
+    }
+  },
+  "component_manifest": {
+    "core_engine": {
+      "bin/deploy_engine.py": "Hardened execution core; utilizes subprocess for reversed config loading.",
+      "bin/github_sync.sh": "w3m-based remote manifest synchronization for Linux CLI."
+    },
+    "opsec_utilities": {
+      "tools/extras/token_validator.py": "API-based token validity check.",
+      "tools/extras/env_injector.py": "Secure shell injection via tac-reversed configs.",
+      "tools/extras/install_hooks.py": "Automates pre-commit linting hooks.",
+      "tools/extras/log_scrubber.py": "Redacts tokens from .log files.",
+      "tools/extras/dep_audit.py": "Audits package manager output for leaks."
+    },
+    "metrics_suite": {
+      "src/derive_area_metrics.py": "Hardened data processor; uses absolute path resolution for BASE.",
+      "src/validate_metrics.py": "Automated target comparison against state benchmarks."
+    }
+  },
+  "operational_thresholds": {
+    "tier_1_quick_fix": "Run sanitize_tokens.py or validate_metrics.py. Risk: Low.",
+    "tier_2_moderate": "Run github_sync.sh or update sys_env.rev. Risk: Low.",
+    "tier_3_nuclear": "Run history_token_cleaner.py (Git history rewrite). Risk: High."
+  },
+  "data_benchmarks": {
+    "targets": {
+      "ind27": 15.97,
+      "sg27": 10.28,
+      "ind27req": 17.14,
+      "ind26": 21.5
+    },
+    "tolerance": 0.01,
+    "integrity_check": "County count must exactly equal 67."
+  },
+  "environment_spec": {
+    "required_packages": ["w3m", "coreutils", "python3"],
+    "critical_path_logic": "All paths must be resolved via Path(__file__).resolve() to prevent CWD crashes in Termux.",
+    "config_strategy": "Secrets stored in .rev files and processed via tac to avoid plaintext persistence."
+  }
+}
