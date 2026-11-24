@@ -24,3 +24,17 @@ tmp_onepagers/
 tmp_onepagers/
 .session-audit/
 env_audit_*.txt
+**/__pycache__/
+*.pyc
+venv/
+dist/
+build/
+**/obj/
+**/bin/
+*.wasm
+*.bak
+*.db
+*.db-wal
+*.db-shm
+*.tgz
+Active_Projects/YouTubeDownloading/
